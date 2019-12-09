@@ -9,4 +9,6 @@ urls=`./2_parse.py 2.html`
 for i in $urls  
 do   
     echo $i;  
+    ./downloader.py $i > 3.html
+    ./3_parse.py 3.html
 done   
