@@ -18,10 +18,9 @@ def parse_html(html):
     :returns: list
     """
     soup = BeautifulSoup(html, 'html.parser')
-    results = []
-    for i in soup.find_all('a', {"class": "aa"}):
-        results.append(i.attrs["href"])
-    return results
+    for i in soup.find_all('strong'):
+        if i.text.strip() == "市中标公告":
+            return i.parent
 
 
 def main():
@@ -38,8 +37,7 @@ def main():
         sys.exit(1)
     html = open(filename).readlines()
     data = parse_html("".join(html))
-    for i in data:
-        print("%s%s" % ("http://dycg.dongying.gov.cn", i))
+    print("%s/%s" % ("http://dycg.dongying.gov.cn/sdgp2014/site", data.attrs["href"]))
 
 
 if __name__ == "__main__":
